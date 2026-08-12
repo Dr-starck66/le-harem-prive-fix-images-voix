@@ -1,0 +1,8 @@
+{
+  "name": "Le Harem Privé",
+  "description": "53 favorites libertines attendent vos ordres. Production d'images ultra-réalistes et voix humaines sensuelles.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": []
+}
