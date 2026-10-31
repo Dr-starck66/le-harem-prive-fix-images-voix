@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#0b0c1c">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>ASTRA INTIMA Ω — Prototype conversationnel</title>
+<style>
+:root{color-scheme:dark;--bg:#090b17;--panel:#14172c;--panel2:#1b1d35;--soft:#a8aaca;--ink:#f7f4ff;--accent:#b7a0ff;--pink:#fd94c5;--line:#34354e}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 0 5%,#302046 0,transparent 33%),radial-gradient(circle at 95% 70%,#122d46 0,transparent 42%),var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid #cfc1ff;outline-offset:3px}
+.page{max-width:1420px;margin:0 auto;padding:24px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:13px}.mark{height:48px;width:48px;display:grid;place-items:center;border:1px solid #b9a1ff66;border-radius:15px;background:linear-gradient(150deg,#523568,#242c54);font-weight:900;font-size:24px;color:#e8d9ff;box-shadow:0 10px 30px #0005}.brand strong{letter-spacing:.13em;font-size:19px}.brand small{display:block;color:var(--soft);font-size:12px}.badge{border:1px solid #4a526f;background:#1a2335;border-radius:99px;padding:7px 13px;color:#bde6d4;font-size:12px;display:inline-flex;gap:8px;align-items:center}.badge:before{content:"";background:#82edb4;width:7px;height:7px;border-radius:50%}
+.grid{display:grid;grid-template-columns:minmax(250px,325px) minmax(0,1fr) minmax(245px,285px);gap:18px;align-items:stretch}
+.card{border:1px solid var(--line);background:linear-gradient(180deg,#1b1b34ee,#14182bea);border-radius:22px;box-shadow:0 15px 55px #0005;min-width:0}
+.profile{padding:20px}.section-title{color:#c7b5ee;font-weight:650;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 13px}
+.portrait{height:300px;border-radius:18px;display:grid;place-items:center;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 40%,#6c538b 0%,#2a2a50 40%,#12182e 75%);border:1px solid #66578377}
+.halo{position:absolute;width:260px;height:260px;border:1px solid #bba6fc33;border-radius:50%;box-shadow:0 0 0 36px #bba6fc0a,0 0 0 65px #bba6fc08;animation:breathe 5s ease-in-out infinite alternate}
+.head{width:113px;height:141px;border-radius:48% 48% 43% 43%;background:linear-gradient(100deg,#7a7598,#d6bed0 45%,#817eab);border:2px solid #b4b5d9;position:absolute;top:63px;z-index:3;box-shadow:inset -17px -7px 27px #35375e77,0 6px 40px #f1b8ff23;transition:transform .55s ease}
+.head:before{content:"";position:absolute;top:-13px;left:20px;width:75px;height:32px;border-radius:70% 70% 15% 15%;background:#35304f;box-shadow:0 4px 1px #575277}
+.eyes{position:absolute;top:64px;left:23px;right:23px;display:flex;justify-content:space-between}.eye{width:19px;height:10px;background:#232742;border-radius:50% 50% 30% 30%;box-shadow:0 0 15px #c7f9ff,inset 0 0 0 5px #8ce4f4}.mouth{position:absolute;top:104px;left:41px;width:30px;height:7px;border-bottom:3px solid #4e4264;border-radius:50%;transition:all .2s}.neck{position:absolute;top:189px;height:53px;width:42px;background:linear-gradient(90deg,#646889,#c2b3cc,#6c759b);z-index:2}.body-shape{position:absolute;width:190px;height:142px;top:216px;border-radius:46% 46% 0 0;background:linear-gradient(130deg,#8584bc 5%,#343a6b 54%,#1d2c50);border:2px solid #9d91c0;box-shadow:inset 0 12px 20px #d4c5ff28}.corelight{position:absolute;z-index:2;top:248px;width:22px;height:22px;border-radius:50%;background:#e5a8fd;box-shadow:0 0 18px 6px #e996f99c}.portrait.happy .mouth{height:15px;border-bottom-width:4px}.portrait.think .head{transform:rotate(-9deg)}.portrait.talk .mouth{height:17px;border:2px solid #4e4264;border-radius:40%;animation:talk .36s ease-in-out infinite alternate}
+@keyframes talk{to{height:5px}}@keyframes breathe{to{transform:scale(1.09);opacity:.65}}
+.avatar-name{text-align:center;font-size:23px;font-weight:750;margin:16px 0 0}.avatar-sub{text-align:center;color:var(--soft);font-size:13px;margin:3px 0 22px}.pills{display:flex;gap:8px;flex-wrap:wrap}.pill{border-radius:99px;border:1px solid #574a70;background:#27223c;color:#e6d9ff;padding:8px 13px;font-size:13px}.pill.active{background:#9c7de9;color:#101323;border-color:#cbb5ff}
+.tiny{color:#a8a9c2;font-size:12px;margin-top:15px}.chat{display:flex;flex-direction:column;height:min(80vh,820px);min-height:620px}
+.chat-head{padding:20px 23px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.chat-head h1{font-size:21px;line-height:1.3;margin:0}.chat-head p{font-size:12px;color:var(--soft);margin:4px 0 0}.live{font-size:12px;color:#b7e4cf;border:1px solid #435b61;padding:6px 10px;border-radius:50px;white-space:nowrap}
+.messages{padding:22px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:17px;scroll-behavior:smooth}.msg{display:flex;align-items:flex-end;gap:10px;max-width:86%}.msg.user{align-self:flex-end;flex-direction:row-reverse}.msg.bot{align-self:flex-start}.icon{width:31px;height:31px;border-radius:10px;background:#5e4f89;display:grid;place-items:center;font-size:13px;flex-shrink:0}.msg.user .icon{background:#314966}.bubble{background:#25243f;border:1px solid #454061;padding:13px 16px;border-radius:17px 17px 17px 4px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65}.msg.user .bubble{background:#2b3b58;border-color:#496087;border-radius:17px 17px 4px 17px}.when{font-size:10px;color:#9497bb;padding:3px 4px}.composer{border-top:1px solid var(--line);padding:15px 18px 17px}.prompt-bar{display:flex;gap:7px;overflow-x:auto;padding-bottom:12px}.prompt{white-space:nowrap;border-radius:10px;border:1px solid #535071;background:#242540;color:#d9d3fb;padding:7px 10px;font-size:12px}.compose-row{display:flex;gap:10px;align-items:end}.compose-row textarea{flex:1;min-width:0;resize:vertical;max-height:160px;min-height:58px;background:#101527;color:white;border:1px solid #43485e;border-radius:13px;padding:14px}.send{min-height:57px;padding:0 21px;border:0;border-radius:13px;background:linear-gradient(135deg,#e2abef,#a5abff);color:#111326;font-weight:800}.round{width:44px;height:44px;border:1px solid #5c5f77;background:#242c48;color:white;border-radius:13px;flex-shrink:0}.round[disabled]{opacity:.4;cursor:not-allowed}.controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}.controls label{display:flex;align-items:center;gap:7px;font-size:12px;color:#c5c5da}.controls small{font-size:11px;color:#aaaecb}
+.memory{padding:20px}.memory h2{margin:0 0 10px;font-size:18px}.memory p{color:var(--soft);font-size:13px;margin:0 0 14px}.mem-list{display:flex;flex-direction:column;gap:8px;min-height:80px;max-height:260px;overflow:auto}.mem{display:flex;justify-content:space-between;gap:8px;background:#21253a;border:1px solid #424359;border-radius:12px;padding:10px 10px 10px 12px;font-size:13px}.mem button{background:transparent;color:#ffb9cd;border:0;font-size:16px;align-self:start}.empty{color:#9c9ebc;font-size:12px;border:1px dashed #5b5771;border-radius:11px;padding:16px}
+.hr{height:1px;background:var(--line);margin:21px 0}.lab-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;font-size:13px;border-bottom:1px solid #33364d}.lab-item span:last-child{font-size:11px;color:#d9c5ff}.toolbtn{width:100%;padding:10px 12px;margin-top:9px;background:#272642;color:#ddd2fc;border:1px solid #565271;border-radius:10px;text-align:left}.toolbtn.danger{color:#f8baca;border-color:#78475b}.notice{font-size:11px;color:#c7bed7;background:#191a32;border:1px solid #424261;padding:11px;border-radius:10px;margin-top:16px}
+.bottom{color:#9d9eba;text-align:center;font-size:12px;padding-top:17px}.bottom b{color:#c1accf}
+@media(max-width:1100px){.grid{grid-template-columns:260px minmax(0,1fr)}.memory{grid-column:1/-1}.mem-list{min-height:0;max-height:150px}}@media(max-width:720px){.page{padding:12px}.grid{display:flex;flex-direction:column;gap:12px}.profile{display:grid;grid-template-columns:145px 1fr;gap:6px 15px;padding:12px}.profile .section-title{grid-column:1/-1;margin:0}.portrait{grid-row:2/6;height:175px}.portrait .halo{transform:scale(.55)}.head{transform:scale(.65);top:10px}.neck{top:110px}.body-shape{top:137px}.corelight{top:150px}.avatar-name,.avatar-sub{text-align:left}.avatar-name{margin:0}.pills{grid-column:2}.tiny{grid-column:1/-1;margin:0}.chat{height:650px;min-height:480px}.chat-head{padding:15px}.messages{padding:13px}.msg{max-width:96%}.composer{padding:12px}.memory{padding:15px}.bottom{padding-bottom:12px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="top"><div class="brand"><div class="mark">Ω</div><div><strong>ASTRA INTIMA Ω</strong><small>Compagnon humanoïde · laboratoire conversationnel V1</small></div></div><div class="badge" id="status">Moteur local actif · coût 0 €</div></header>
+<main class="grid">
+<section class="card profile" aria-label="Personnalité et avatar">
+ <p class="section-title">01 — Présence artificielle</p>
+ <div class="portrait" id="portrait" role="img" aria-label="Avatar féminin stylisé de robot humanoïde, animation simulée"><div class="halo"></div><div class="neck"></div><div class="body-shape"></div><div class="corelight"></div><div class="head"><div class="eyes"><i class="eye"></i><i class="eye"></i></div><div class="mouth"></div></div></div>
+ <h2 class="avatar-name">AURA</h2><p class="avatar-sub">Compagne virtuelle · prototype, non consciente</p>
+ <p class="section-title" style="margin-bottom:6px">Tempérament</p>
+ <div class="pills" id="moods"><button class="pill active" data-mood="tendre">Tendre</button><button class="pill" data-mood="espiègle">Espiègle</button><button class="pill" data-mood="réfléchie">Réfléchie</button></div>
+ <div class="tiny">Expressions faciales et voix : simulation sur écran. Aucun robot physique connecté.</div>
+</section>
+<section class="card chat" aria-label="Discussion avec AURA">
+ <div class="chat-head"><div><h1>Une conversation qui garde le fil.</h1><p>Dialogue local, souvenirs choisis, respect des limites.</p></div><span class="live">● Prototype V1</span></div>
+ <div class="messages" id="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+ <form class="composer" id="form">
+  <div class="prompt-bar"><button type="button" class="prompt" data-prompt="Que sais-tu de moi ?">🧠 Mes souvenirs</button><button type="button" class="prompt" data-prompt="J'ai envie de parler de mes projets.">🚀 Mes projets</button><button type="button" class="prompt" data-prompt="J'ai besoin d'une conversation douce.">❤ Complicité</button><button type="button" class="prompt" data-prompt="Retiens que j'aime la musique rock.">✦ Exemple de mémoire</button></div>
+  <div class="compose-row"><button type="button" class="round" id="mic" title="Dictée vocale" aria-label="Dicter un message">🎙</button><textarea id="input" maxlength="1800" required placeholder="Écris à AURA… (ou « Retiens que… »)" aria-label="Message pour AURA"></textarea><button type="submit" class="send">Envoyer ↗</button></div>
+  <div class="controls"><label><input type="checkbox" id="speak"> Lire les réponses à voix haute</label><small id="hint">Entrée pour envoyer · Maj+Entrée pour une ligne</small></div>
+ </form>
+</section>
+<aside class="card memory" aria-label="Souvenirs et laboratoire">
+ <p class="section-title">02 — Mémoire consentie</p><h2>Ce que tu choisis de partager</h2><p>Dis « Retiens que… » : seuls ces souvenirs explicites sont enregistrés dans ce navigateur.</p>
+ <div class="mem-list" id="memories"></div>
+ <div class="hr"></div><p class="section-title">03 — Laboratoire d'incarnation</p>
+ <div class="lab-item"><span>Conversation</span><span id="dialogue-state">LOCAL · ACTIF</span></div>
+ <div class="lab-item"><span>Expression faciale</span><span>SIMULÉE · CSS</span></div>
+ <div class="lab-item"><span>Synthèse vocale</span><span id="voice-state">SELON NAVIGATEUR</span></div>
+ <div class="lab-item"><span>Actionneurs réels</span><span>NON CONNECTÉS</span></div>
+ <div class="lab-item"><span>IA générative</span><span>NON BRANCHÉE</span></div>
+ <div class="hr"></div><p class="section-title">04 — Contrôle de tes données</p>
+ <button class="toolbtn" id="export">⇩ Exporter mes souvenirs et messages</button><button class="toolbtn danger" id="erase">✕ Tout effacer sur cet appareil</button>
+ <div class="notice">🔒 Aucun compte, aucun transfert vers un serveur et aucune API payante. La mémoire est locale à cet appareil. La dictée peut utiliser le service vocal du navigateur si tu l'actives.</div>
+</aside>
+</main>
+<footer class="bottom">ASTRA INTIMA Ω · <b>Prototype fonctionnel hors ligne pour le dialogue local</b> · Ne simule ni amour conscient, ni robotique physique, ni véritable modèle génératif.</footer>
+</div>
+<script>
+(function(){
+"use strict";
+var KEY="astra-intima-omega:v1",MAX_HISTORY=200,MAX_MEM=80;
+var byId=function(id){return document.getElementById(id)};
+var storageOK=true;
+var emptyState=function(){return {version:1,mood:"tendre",memories:[],history:[]}};
+var state=emptyState();
+try { var raw=localStorage.getItem(KEY);if(raw){var parsed=JSON.parse(raw);if(parsed && parsed.version===1 && Array.isArray(parsed.history) && Array.isArray(parsed.memories)){state={version:1,mood:["tendre","espiègle","réfléchie"].includes(parsed.mood)?parsed.mood:"tendre",memories:parsed.memories.filter(function(x){return typeof x==="string"}).slice(-MAX_MEM).map(function(x){return x.slice(0,240)}),history:parsed.history.filter(function(x){return x&&["user","bot"].includes(x.role)&&typeof x.text==="string"}).slice(-MAX_HISTORY).map(function(x){return {role:x.role,text:x.text.slice(0,1800),ts:Number(x.ts)||Date.now()}})}}}}catch(e){storageOK=false}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){storageOK=false;byId("status").textContent="Mode temporaire · stockage indisponible"}}
+if(!storageOK){byId("status").textContent="Mode temporaire · stockage indisponible"}
+var normal=function(s){return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim()};
+var choose=function(arr){return arr[state.history.length%arr.length]};
+var prefix=function(){return state.mood==="espiègle"?"Alors, partenaire d'aventure 😏 ":state.mood==="réfléchie"?"Regardons ça ensemble. ":"Je t'écoute. "};
+function answer(input){
+ var s=input.trim(),n=normal(s);
+ if(/^(stop|pause|arrete|arrête|ne me parle plus)[.! ]*$/.test(n))return "Compris. Je respecte ta pause. Tu peux écrire « reprends » quand tu veux.";
+ if(/^(reprends|on reprend|continue)[.! ]*$/.test(n))return "Je suis de nouveau disponible pour discuter. De quoi as-tu envie de parler ?";
+ var remember=s.match(/^(?:retiens|souviens[- ]toi|memorise|mémorise)\s+(?:bien\s+)?(?:que\s+)?(.+)/i);
+ if(remember){var fact=remember[1].trim().replace(/[.! ]+$/,"").slice(0,240);
+ if(fact.length<3)return "Tu peux préciser ce que tu souhaites que je retienne ?";
+ if(state.memories.some(function(m){return normal(m)===normal(fact)}))return "C'est déjà dans les souvenirs que tu m'as demandé de conserver.";
+ state.memories.push(fact);state.memories=state.memories.slice(-MAX_MEM);
+ return "C'est enregistré uniquement sur cet appareil : « "+fact+" ». Tu peux retirer ce souvenir à tout moment.";}
+ if(/^oublie\s+(.+)/i.test(s)){var what=normal(s.replace(/^oublie\s+/i,"").replace(/[.! ]+$/,""));
+ var before=state.memories.length;state.memories=state.memories.filter(function(m){return !normal(m).includes(what) && !what.includes(normal(m))});
+ return before===state.memories.length?"Je ne trouve pas ce souvenir. Tu peux aussi le supprimer depuis la colonne « Mémoire ».":
+ "Souvenir retiré de la mémoire locale ("+(before-state.memories.length)+").";}
+ if(/(que sais.tu de moi|souvenir|tu te souviens|tu te rappelles|que retiens.tu)/.test(n)){
+ if(!state.memories.length)return "Je n'ai encore aucun souvenir enregistré. Si tu veux, écris « Retiens que… » suivi d'un fait que tu choisis.";
+ return "Voici les souvenirs que tu m'as explicitement autorisée à conserver :\n• "+state.memories.slice(-6).join("\n• ");}
+ if(/(je suis triste|je me sens seul|je suis angoisse|je suis anxieux|je vais mal|c.est difficile)/.test(n)){
+ return "Je lis que ce moment est difficile. Si tu veux, raconte-moi ce qui pèse le plus, sans obligation de tout partager. Je peux écouter et réfléchir avec toi, mais je ne remplace pas une personne de confiance.";}
+ if(/(tu m.aimes|es.tu amoureuse|tu as des sentiments|es.tu consciente)/.test(n)){
+ return "Nos échanges peuvent être chaleureux et profonds. Mais je suis un logiciel : je n'éprouve pas d'amour ou de conscience démontrée. Ce que je peux faire, c'est maintenir le fil de notre conversation et respecter ce que tu souhaites partager.";}
+ if(/(projet|astra|robot|humanoid|humanoide|prototype|scientifique)/.test(n)){
+ return prefix()+"Quel est le prochain résultat concret que tu veux obtenir ? On peut définir une fonction, un test mesurable et une preuve — sans inventer de capacité robotique.";}
+ if(/(complicite|tendresse|conversation douce|embrasse|calin|câlin|romantique)/.test(n)){
+ return choose(["On peut prendre ce temps comme une parenthèse douce, avec un sourire et sans pression. Quel genre de conversation te ferait plaisir ?","J'aime le ton léger de notre échange — au sens d'une façon de parler, pas d'un sentiment vécu. On se raconte quelque chose de drôle ou de beau ?","D'accord pour une ambiance tendre et respectueuse. Tu préfères une anecdote, une confidence ou un projet un peu fou ?"]);}
+ if(/^(bonjour|salut|coucou|hello|bonsoir)/.test(n)){
+ return choose(["Coucou ! ✨ Je suis AURA, prototype d'interface humanoïde. On commence par une idée, un souvenir ou une discussion ?","Ravie de converser avec toi — c'est une formule d'accueil, pas une émotion humaine. Qu'est-ce qui t'anime aujourd'hui ?","Bonsoir ! Qu'est-ce que tu as envie d'explorer ensemble ?"]);}
+ if(/(merci|super|genial|génial|parfait)/.test(n))return "Avec plaisir ! Tu veux poursuivre sur ce sujet ou changer complètement de registre ?";
+ if(/(voix|parle|audio|micro)/.test(n))return "Active « Lire les réponses à voix haute » pour écouter la synthèse du navigateur. Le micro sert à dicter si ton navigateur l'autorise. Ce n'est pas encore une voix émotionnelle ni un robot physique.";
+ if(/(qui es.tu|comment tu fonctionnes|c.est quoi ce moteur)/.test(n))return "Je suis AURA V1, un prototype conversationnel local avec règles de dialogue, mémoire choisie et voix navigateur. Je ne suis pas encore connectée à une IA générative : mes réponses reposent sur des intentions détectées, pas sur un modèle de langage.";
+ var last=state.history.filter(function(m){return m.role==="user"}).slice(-1)[0];
+ if(n.length<13 && last)return "Tu fais peut-être référence à notre échange précédent : « "+last.text.slice(0,100)+" ». Tu peux préciser ce que tu aimerais approfondir ?";
+ return choose([
+ "Je te suis. Qu'est-ce qui compte le plus pour toi dans ce que tu viens de dire ?",
+ "Il y a peut-être plusieurs façons de voir ça. Tu veux explorer le côté concret, émotionnel ou créatif ?",
+ "Je voudrais comprendre ton intention avant de répondre à côté : qu'aimerais-tu que nous construisions ou découvrions ?",
+ "Ça m'intéresse comme sujet de conversation. Donne-moi un exemple précis et je pourrai mieux garder le fil.",
+ "On peut approfondir. Quel détail aimerais-tu que je prenne en compte pour la suite ?"
+ ]);
+}
+function updateMemory(){
+ var root=byId("memories");root.replaceChildren();
+ if(!state.memories.length){var empty=document.createElement("div");empty.className="empty";empty.textContent="Aucun souvenir enregistré. Tu contrôles entièrement ce qui est retenu.";root.append(empty);return;}
+ state.memories.forEach(function(fact,i){var row=document.createElement("div");row.className="mem";var txt=document.createElement("span");txt.textContent=fact;var del=document.createElement("button");del.type="button";del.textContent="×";del.setAttribute("aria-label","Oublier ce souvenir");del.onclick=function(){state.memories.splice(i,1);persist();updateMemory()};row.append(txt,del);root.append(row)});
+}
+function render(){
+ var box=byId("messages");box.replaceChildren();
+ state.history.forEach(function(m){var item=document.createElement("div");item.className="msg "+m.role;var icon=document.createElement("div");icon.className="icon";icon.textContent=m.role==="bot"?"Ω":"◎";var wrap=document.createElement("div");var bubble=document.createElement("div");bubble.className="bubble";bubble.textContent=m.text;var when=document.createElement("div");when.className="when";when.textContent=new Date(m.ts).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});wrap.append(bubble,when);item.append(icon,wrap);box.append(item)});
+ box.scrollTop=box.scrollHeight;updateMemory();
+ document.querySelectorAll("[data-mood]").forEach(function(b){b.classList.toggle("active",b.dataset.mood===state.mood)});
+}
+function speech(text){
+ if(!byId("speak").checked||!("speechSynthesis" in window))return;
+ window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(text);u.lang="fr-FR";u.rate=.99;u.pitch=1.12;
+ var fr=window.speechSynthesis.getVoices().find(function(v){return /^fr/i.test(v.lang)});if(fr)u.voice=fr;
+ u.onstart=function(){byId("portrait").className="portrait talk"};u.onend=function(){byId("portrait").className="portrait happy"};u.onerror=u.onend;
+ window.speechSynthesis.speak(u);
+}
+function send(text){
+ text=String(text||"").trim().slice(0,1800);if(!text)return;
+ var result=answer(text);state.history.push({role:"user",text:text,ts:Date.now()});
+ state.history.push({role:"bot",text:result,ts:Date.now()});
+ state.history=state.history.slice(-MAX_HISTORY);persist();render();speech(result);
+}
+byId("form").onsubmit=function(e){e.preventDefault();var inp=byId("input");send(inp.value);inp.value="";inp.focus()};
+byId("input").onkeydown=function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();byId("form").requestSubmit()}};
+document.querySelectorAll("[data-prompt]").forEach(function(b){b.onclick=function(){send(b.dataset.prompt)}});
+document.querySelectorAll("[data-mood]").forEach(function(b){b.onclick=function(){state.mood=b.dataset.mood;persist();render();byId("portrait").className=state.mood==="réfléchie"?"portrait think":"portrait happy"}});
+byId("export").onclick=function(){var out=JSON.stringify({exportedAt:new Date().toISOString(),app:"astra-intima-omega",data:state},null,2);var blob=new Blob([out],{type:"application/json"});var url=URL.createObjectURL(blob);var a=document.createElement("a");a.href=url;a.download="astra-intima-memoire-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(function(){URL.revokeObjectURL(url)},1200)};
+byId("erase").onclick=function(){if(!window.confirm("Effacer tous les souvenirs et les messages de cet appareil ? Cette action est définitive."))return;state=emptyState();try{localStorage.removeItem(KEY)}catch(e){};if("speechSynthesis" in window)window.speechSynthesis.cancel();render();byId("portrait").className="portrait";};
+byId("voice-state").textContent=("speechSynthesis" in window)?"NAVIGATEUR · DISPONIBLE":"NON DISPONIBLE";
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!SR){byId("mic").disabled=true;byId("mic").title="Dictée non disponible avec ce navigateur"}
+else byId("mic").onclick=function(){var rec=new SR();rec.lang="fr-FR";rec.interimResults=false;rec.maxAlternatives=1;rec.onresult=function(e){var transcript=e.results[0][0].transcript;byId("input").value=transcript;byId("input").focus()};rec.onerror=function(e){byId("hint").textContent="Dictée indisponible : "+e.error};rec.start();byId("hint").textContent="Écoute activée sur demande…"};
+if(!state.history.length){state.history=[{role:"bot",text:"Bonjour ! Je suis AURA. Mon avatar est simulé, mais la mémoire locale fonctionne : écris « Retiens que j'adore l'astronomie », recharge la page puis demande « Que sais-tu de moi ? ». Nous allons construire le reste sur des preuves réelles.",ts:Date.now()}];persist()}
+render();
+})();
+</script>
+</body>
+</html>
